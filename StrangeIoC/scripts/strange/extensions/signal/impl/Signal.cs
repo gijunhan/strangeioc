@@ -64,6 +64,7 @@
  * @see strange.extensions.signal.impl.BasrSignal
  */
 
+using strange.extensions.signal.api;
 using System;
 using System.Collections.Generic;
 
@@ -74,13 +75,27 @@ namespace strange.extensions.signal.impl
 	{
 		public event Action Listener = delegate { };
 		public event Action OnceListener = delegate { };
-		public void AddListener(Action callback) { Listener += callback; }
-		public void AddOnce(Action callback) { OnceListener += callback; }
+
+		public SignalBinding AddListener(Action callback)
+		{
+			Listener += callback;
+			return new SignalBinding(this, callback);
+		}
+
+		public SignalBinding AddOnce(Action callback)
+		{
+			OnceListener += callback;
+			return new SignalBinding(this, callback);
+		   // return callback;
+		}
+
 		public void RemoveListener(Action callback) { Listener -= callback; }
+
 		public override List<Type> GetTypes()
 		{
 			return new List<Type>();
 		}
+
 		public void Dispatch()
 		{
 			Listener();
@@ -95,11 +110,24 @@ namespace strange.extensions.signal.impl
 	{
 		public event Action<T> Listener = delegate { };
 		public event Action<T> OnceListener = delegate { };
-		public void AddListener(Action<T> callback) { Listener += callback; }
-		public void AddOnce(Action<T> callback) { OnceListener += callback; }
+
+		public SignalBinding<T> AddListener(Action<T> callback)
+		{
+			Listener += callback;
+			return new SignalBinding<T>(this, callback);
+		}
+
+		public SignalBinding<T> AddOnce(Action<T> callback)
+		{
+			OnceListener += callback;
+			return new SignalBinding<T>(this, callback);
+			//return callback;
+		}
+
 		public void RemoveListener(Action<T> callback) { Listener -= callback; }
-		public override  List<Type> GetTypes() 
-		{ 
+
+		public override List<Type> GetTypes()
+		{
 			List<Type> retv = new List<Type>();
 			retv.Add(typeof(T));
 			return retv;
@@ -119,9 +147,21 @@ namespace strange.extensions.signal.impl
 	{
 		public event Action<T, U> Listener = delegate { };
 		public event Action<T, U> OnceListener = delegate { };
-		public void AddListener(Action<T, U> callback) { Listener += callback; }
-		public void AddOnce(Action<T, U> callback) { OnceListener += callback; }
+
+		public SignalBinding<T, U> AddListener(Action<T, U> callback)
+		{
+			Listener += callback;
+			return new SignalBinding<T,U>(this, callback);
+		}
+
+		public SignalBinding<T, U> AddOnce(Action<T, U> callback)
+		{
+			OnceListener += callback;
+			return new SignalBinding<T, U>(this, callback);
+		}
+
 		public void RemoveListener(Action<T, U> callback) { Listener -= callback; }
+
 		public override List<Type> GetTypes()
 		{
 			List<Type> retv = new List<Type>();
@@ -144,9 +184,21 @@ namespace strange.extensions.signal.impl
 	{
 		public event Action<T, U, V> Listener = delegate { };
 		public event Action<T, U, V> OnceListener = delegate { };
-		public void AddListener(Action<T, U, V> callback) { Listener += callback; }
-		public void AddOnce(Action<T, U, V> callback) { OnceListener += callback; }
+
+		public SignalBinding<T, U, V> AddListener(Action<T, U, V> callback)
+		{
+			Listener += callback;
+			return new SignalBinding<T, U, V>(this, callback);
+		}
+
+		public SignalBinding<T, U, V> AddOnce(Action<T, U, V> callback)
+		{
+			OnceListener += callback;
+			return new SignalBinding<T, U, V>(this, callback);
+		}
+
 		public void RemoveListener(Action<T, U, V> callback) { Listener -= callback; }
+
 		public override List<Type> GetTypes()
 		{
 			List<Type> retv = new List<Type>();
@@ -170,9 +222,21 @@ namespace strange.extensions.signal.impl
 	{
 		public event Action<T, U, V, W> Listener = delegate { };
 		public event Action<T, U, V, W> OnceListener = delegate { };
-		public void AddListener(Action<T, U, V, W> callback) { Listener += callback; }
-		public void AddOnce(Action<T, U, V, W> callback) { OnceListener += callback; }
+
+		public SignalBinding<T, U, V, W> AddListener(Action<T, U, V, W> callback)
+		{
+			Listener += callback;
+			return new SignalBinding<T, U, V, W>(this, callback);
+		}
+
+		public SignalBinding<T, U, V, W> AddOnce(Action<T, U, V, W> callback)
+		{
+			OnceListener += callback;
+			return new SignalBinding<T, U, V, W>(this, callback);
+		}
+
 		public void RemoveListener(Action<T, U, V, W> callback) { Listener -= callback; }
+
 		public override List<Type> GetTypes()
 		{
 			List<Type> retv = new List<Type>();
